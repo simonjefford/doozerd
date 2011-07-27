@@ -3,7 +3,6 @@ package peer
 import (
 	"doozer/store"
 	"github.com/ha/doozer"
-	"exec"
 	"github.com/bmizerany/assert"
 	"os"
 	"testing"
@@ -338,22 +337,4 @@ func assertDenied(t *testing.T, err os.Error) {
 	assert.NotEqual(t, nil, err)
 	assert.Equal(t, doozer.ErrOther, err.(*doozer.Error).Err)
 	assert.Equal(t, "permission denied", err.(*doozer.Error).Detail)
-}
-
-
-func runDoozer(a ...string) *exec.Cmd {
-	path := "/home/kr/src/go/bin/doozerd"
-	p, err := exec.Run(
-		path,
-		append([]string{path}, a...),
-		nil,
-		"/",
-		0,
-		0,
-		0,
-	)
-	if err != nil {
-		panic(err)
-	}
-	return p
 }
